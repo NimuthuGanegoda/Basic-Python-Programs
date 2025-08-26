@@ -1,0 +1,86 @@
+BEGIN
+
+// This program is for figuring out a student's final grade from their marks.
+
+// Let's start with a welcome message.
+PRINT "Welcome to the Student Grade Calculator!"
+
+// I'll use a loop here in case we need to do this for more than one student.
+LOOP
+    // First, get the student's info.
+    ASK "Enter the student's name: "
+    STORE student_name
+
+    ASK "Enter the student's ID: "
+    STORE student_id
+
+    // Now for the marks. Each one needs to be a number from 0 to 100.
+    // Let's start with the first assignment, it's 20% of the total.
+    REPEAT
+        ASK "What was the score for Assignment 1 (0-100)? "
+        STORE assignment1_mark
+        IF assignment1_mark < 0 OR assignment1_mark > 100 THEN
+            PRINT "That mark doesn't look right. It should be between 0 and 100."
+        END IF
+    UNTIL assignment1_mark is valid
+
+    // Assignment 2 is also 20%.
+    REPEAT
+        ASK "And for Assignment 2 (0-100)? "
+        STORE assignment2_mark
+        IF assignment2_mark < 0 OR assignment2_mark > 100 THEN
+            PRINT "That mark doesn't look right. It should be between 0 and 100."
+        END IF
+    UNTIL assignment2_mark is valid
+
+    // Assignment 3, another 20%.
+    REPEAT
+        ASK "How about Assignment 3 (0-100)? "
+        STORE assignment3_mark
+        IF assignment3_mark < 0 OR assignment3_mark > 100 THEN
+            PRINT "That mark doesn't look right. It should be between 0 and 100."
+        END IF
+    UNTIL assignment3_mark is valid
+
+    // The final exam is worth 40%.
+    REPEAT
+        ASK "And the final exam score (0-100)? "
+        STORE final_exam_mark
+        IF final_exam_mark < 0 OR final_exam_mark > 100 THEN
+            PRINT "That mark doesn't look right. It should be between 0 and 100."
+        END IF
+    UNTIL final_exam_mark is valid
+
+    // Time to calculate the final score.
+    CALCULATE total_mark = (assignment1_mark * 0.2) + (assignment2_mark * 0.2) + (assignment3_mark * 0.2) + (final_exam_mark * 0.4)
+
+    // Now, let's see what grade that score gets.
+    IF total_mark >= 80 THEN
+        ASSIGN final_grade = "High Distinction"
+    ELSE IF total_mark >= 70 THEN
+        ASSIGN final_grade = "Distinction"
+    ELSE IF total_mark >= 60 THEN
+        ASSIGN final_grade = "Credit"
+    ELSE IF total_mark >= 50 THEN
+        ASSIGN final_grade = "Pass"
+    ELSE
+        ASSIGN final_grade = "Fail"
+    END IF
+
+    // Let's print out the results.
+    PRINT "--- Grade Report ---"
+    PRINT "Student: " + student_name
+    PRINT "ID: " + student_id
+    PRINT "Final Score: " + total_mark
+    PRINT "Grade: " + final_grade
+    PRINT "--------------------"
+
+    // See if the user wants to go again.
+    ASK "Calculate for another student? (yes/no): "
+    STORE go_again
+WHILE go_again is "yes"
+
+// Finished.
+PRINT "Thanks for using the grade calculator. Goodbye!"
+
+END
